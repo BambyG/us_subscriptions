@@ -58,7 +58,7 @@ app.layout = html.Div([
 #####
 
                 html.Div([
-                    html.H2('Sales'),
+                    html.H2('General'),
                     html.H4(id='rev',style={'textAlign':'center'})
 
                 ]),
@@ -125,7 +125,7 @@ app.layout = html.Div([
                 dcc.Markdown(children=signature)],
                 style={'textAlign':'right','paddingRight':10})
 
-             ])
+             ], style={'margin':10})
 #sig
 
 @app.callback(Output('sales_revenue_profit_product','figure'),
@@ -146,7 +146,11 @@ def update_figure(country):
         'data':traces,
         'layout':go.Layout(
             barmode='relative',
-            title = 'Profit by Product'
+            title = 'Average Profit by Product',
+            xaxis = {'title':'Year'},
+
+            yaxis = {'title':'Avg.Profit'}
+
         )
     }
 
@@ -172,7 +176,10 @@ def update_figure(country):
         'data':traces,
         'layout':go.Layout(
             barmode='group',
-            title = 'Total Subscriptions Sold'
+            title = 'Total Subscriptions Sold',
+            xaxis = {'title':'Year'},
+            yaxis = {'title':'Sum'}
+
         )
     }
 
@@ -197,7 +204,11 @@ def update_figure(country):
         'data':traces,
         'layout':go.Layout(
             barmode='stack',
-            title = 'Revenue by Marketing Channel and Product Type'
+            title = 'Revenue by Marketing Channel and Product Type',
+            xaxis = {'title':'Revenue'},
+
+            yaxis = {'title':'Product Type'}
+
         )
     }
 
@@ -220,7 +231,7 @@ def update_figure(country):
         'data':traces,
         'layout':go.Layout(
             barmode='stack',
-            title = 'Revenue by Marketing Channel %'
+            title = 'Revenue % by Marketing Channel '
 
         )
     }
@@ -263,7 +274,9 @@ def update_figure(country):
         'data':traces,
         'layout':go.Layout(
 
-            title = 'Revenue by Marketing Channel %'
+            title = 'Revenue, Profit, Cost evolution',
+            xaxis = {'title':'Subscription Date'},
+            yaxis = {'title':'Total'}
 
         )
     }
@@ -284,7 +297,11 @@ def update_figure(country):
         'data':traces,
         'layout':go.Layout(
 
-            title = 'Revenue by Marketing Channel %'
+            title = 'Profit by marketing Channel',
+            xaxis = {'title':'Channel'},
+
+            yaxis = {'title':'Sum. Profit'}
+
 
         )
     }
@@ -304,7 +321,12 @@ def update_heatmap(country):
                    x=newtablename.columns,
                    y=newtablename.index
                    )],
-            'layout':go.Layout(title='Retention Rate heatmap in {} countries'.format(country))
+            'layout':go.Layout(
+            title='Retention Rate heatmap in {}'.format(country),
+            xaxis = {'title':'Periods'},
+
+            yaxis = {'title':'Group'}
+)
 
     })
 
@@ -332,7 +354,11 @@ def update_heatmap(country):
                                    y=aa.iloc[:,1],
 
                    )],
-            'layout':go.Layout(title='Average Retention Rate heatmap in {} countries'.format(country))
+            'layout':go.Layout(
+                title='Average Retention Rate heatmap in {}'.format(country),
+                xaxis = {'title':'Periods'},
+
+                yaxis = {'title':'Retention Rate in %'})
 
 
     })
@@ -364,8 +390,11 @@ def update_bubble(country):
 
         #plot creation
         return({'data':traces,
-            'layout':go.Layout(title='Average Retention Rate heatmap in {}'.format(country),
-            hovermode='closest')
+            'layout':go.Layout(
+            title='Customer Segmentation in {}'.format(country),
+            hovermode='closest',
+            xaxis = {'title':'Recency in days'},
+            yaxis = {'title':'Frequency'})
 
 
     })
@@ -402,8 +431,10 @@ def update_bubble(country):
 
         #plot creation
         return({'data':traces,
-            'layout':go.Layout(title='Average Retention Rate heatmap in {}'.format(country),
-            hovermode='closest')
+            'layout':go.Layout(title='Customer Segmentation in {}'.format(country),
+            hovermode='closest',
+            xaxis = {'title':'Recency in days'},
+            yaxis = {'title':'Frequency'})
 
     })
 
